@@ -1,6 +1,6 @@
 const api_key = 'e69826e4e066f007b75fffb9504faec7';
 
-const popular_url = 'https://api.themoviedb.org/3/movie/popular?api_key=';
+const popular_url = 'https://api.themoviedb.org/3/tv/popular?api_key=';
 const upcoming_url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
 const toprated_url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
 const tranding_url = 'https://api.themoviedb.org/3/trending/movie/day?api_key=';
@@ -14,33 +14,29 @@ const trandingMovies = tranding_url + api_key;
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
 
-const makingPoster = (int, data) => {
+const makingPoster = (int, data, type) => {
 
     let parentDiv = parent[int];
 
     data.map(item => {
         const div = document.createElement('div');
         const img = document.createElement('img');
-        const p = document.createElement('p');
 
         parentDiv.appendChild(div);
         div.appendChild(img);
-        div.appendChild(p);
-        p.appendChild(document.createTextNode(item.title));
 
         img.setAttribute('src', `${img_url}${item.poster_path}`);
-        p.className = 'title';
         div.className = 'card';
     })
 }
 
-// // fetching tranding movies through api
+// fetching tranding movies through api
 // fetch(trandingMovies)
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('tranding', JSON.stringify(data.results));
 //     // console.log(data.results);
-//     makingPoster(0, data.results);
+//     makingPoster(0, data.results, 'movie');
 // })
 
 // // fetching popular movies through api
@@ -48,7 +44,7 @@ const makingPoster = (int, data) => {
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('popular', JSON.stringify(data.results));
-//     makingPoster(1, data.results);
+//     makingPoster(1, data.results, 'show');
 // })
 
 // // fetching upcoming movies through api
