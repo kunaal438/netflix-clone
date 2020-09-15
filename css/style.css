@@ -1,0 +1,136 @@
+/*   #e50914 -- red 
+    #181818 -- background  */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 10px;
+}
+
+body{
+    background: #181818;
+    font-family: sans-serif;
+}
+
+nav{
+    width: 100%;
+    height: 5.7rem;
+    background: #000;
+    display: flex;
+    align-items: center;
+    padding: 0 3vw;
+    position: fixed;
+    top: 0;
+}
+
+.svg-icon{
+    width: 11rem;
+}
+
+.right-content{
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-left: auto;
+}
+
+.right-content p{
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.btn{
+    width: 10rem;
+    padding: 8px 10px;
+    margin: 0 5px;
+    border: 1px solid #fff;
+    background: transparent;
+    border-radius: 3px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn.join-btn{
+    background: #e50914;
+    border: none;
+}
+
+.popular-container{
+    width: 100%;
+    height: 300px;
+    padding: 2rem 3vw;
+    margin-top: 9rem;
+    position: relative;
+}
+
+.popular-container .heading{
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.cards-container{
+    width: 100%;
+    height: 100%;
+    /* background: #000; */
+    display: flex;
+    overflow-x: hidden;
+}
+
+.cards-container .card {
+    height: 100%;
+    min-width: 156px;
+    width: 156px;
+    position: relative;
+    /* background: #2ff; */
+    margin-right: 2rem;
+}
+
+.cards-container .card img{
+    width: 100%;
+    height: 90%;
+    background: #000;
+}
+
+.cards-container .card .title{
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.pre, .nxt{
+    color: #e50914;
+    opacity: 0.5;
+    font-size: 3rem;
+    position: absolute;
+    height: 250px;
+    cursor: pointer;
+    line-height: 250px;
+    width: 3rem;
+}
+
+.pre{
+    left: 1rem;
+    top: 20%;
+}
+
+.nxt{
+    right: 0rem;
+    top: 20%;
+}
+
+.pre:hover, .nxt:hover{
+    opacity: 1;
+}
