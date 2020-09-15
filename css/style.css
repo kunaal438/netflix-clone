@@ -63,6 +63,53 @@ nav{
     border: none;
 }
 
+.banner{
+    width: 100%;
+    margin-top: 5rem;
+    height: 400px;
+    background: #1f1f1f;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 3rem 3vw;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.banner::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.banner .banner-img{
+    position: absolute;
+    user-select: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.banner .banner-heading{
+    z-index: 3; 
+    position: relative;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.banner p{
+    z-index: 3;
+    position: relative;
+    font-size: 1.4rem;
+    width: 60%;
+}
+
 .tranding-container,
 .popular-container,
 .latest-container,
@@ -72,10 +119,6 @@ nav{
     padding: 2rem 3.7rem;
     margin-top: 6rem;
     position: relative;
-}
-
-.tranding-container{
-    margin-top: 9rem;
 }
 
 .toprated-container{

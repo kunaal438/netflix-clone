@@ -11,6 +11,11 @@ const upcomingMovies = upcoming_url + api_key;
 const topratedMovies = toprated_url + api_key;
 const trandingMovies = tranding_url + api_key;
 
+// banner variables
+const bannerImg = document.querySelector('.banner-img');
+const bannerHeading = document.querySelector('.banner-heading');
+const bannerInfo = document.querySelector('.banner p');
+
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
 
@@ -75,3 +80,13 @@ makingPoster(2, data3);
 
 let data4 = JSON.parse(localStorage.getItem('toprated'));
 makingPoster(3, data4);
+
+let arr = [data1, data2, data3, data4];
+let randomArr = Math.floor(Math.random() * arr.length);
+let bannerDataArr = arr[randomArr];
+let bannerDataArrRandom = Math.floor(Math.random() * bannerDataArr.length);
+let bannerData = bannerDataArr[bannerDataArrRandom];
+
+bannerImg.setAttribute('src', `https://image.tmdb.org/t/p/original/${bannerData.backdrop_path}`)
+bannerHeading.innerHTML = bannerData.title;
+bannerInfo.innerHTML = bannerData.overview;
