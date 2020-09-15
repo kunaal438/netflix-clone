@@ -1,11 +1,15 @@
 const api_key = 'e69826e4e066f007b75fffb9504faec7';
 
 const popular_url = 'https://api.themoviedb.org/3/movie/popular?api_key=';
-const upcoming_url = 'https://api.themoviedb.org/3/movie/upcoming?api_key='
+const upcoming_url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
+const toprated_url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
+const tranding_url = 'https://api.themoviedb.org/3/trending/movie/day?api_key=';
 const img_url = 'https://image.tmdb.org/t/p/w500/';
 
 const popularMovies = popular_url + api_key;
 const upcomingMovies = upcoming_url + api_key;
+const topratedMovies = toprated_url + api_key;
+const trandingMovies = tranding_url + api_key;
 
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
@@ -30,12 +34,21 @@ const makingPoster = (int, data) => {
     })
 }
 
-// fetching popular movies through api
+// // fetching tranding movies through api
+// fetch(trandingMovies)
+// .then(res => res.json())
+// .then(data => {
+//     localStorage.setItem('tranding', JSON.stringify(data.results));
+//     // console.log(data.results);
+//     makingPoster(0, data.results);
+// })
+
+// // fetching popular movies through api
 // fetch(popularMovies)
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('popular', JSON.stringify(data.results));
-//     makingPoster(0, data.results);
+//     makingPoster(1, data.results);
 // })
 
 // // fetching upcoming movies through api
@@ -43,12 +56,26 @@ const makingPoster = (int, data) => {
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('upcoming', JSON.stringify(data.results));
-//     console.log(data.results);
-//     makingPoster(1, data.results);
+//     makingPoster(2, data.results);
 // })
 
-let data1 = JSON.parse(localStorage.getItem('popular'));
+// // fetching toprated movies through api
+// fetch(topratedMovies)
+// .then(res => res.json())
+// .then(data => {
+//     localStorage.setItem('toprated', JSON.stringify(data.results));
+//     // console.log(data.results);
+//     makingPoster(3, data.results);
+// })
+
+let data1 = JSON.parse(localStorage.getItem('tranding'));
 makingPoster(0, data1);
 
-let data2 = JSON.parse(localStorage.getItem('upcoming'));
+let data2 = JSON.parse(localStorage.getItem('popular'));
 makingPoster(1, data2);
+
+let data3 = JSON.parse(localStorage.getItem('upcoming'));
+makingPoster(2, data3);
+
+let data4 = JSON.parse(localStorage.getItem('toprated'));
+makingPoster(3, data4);

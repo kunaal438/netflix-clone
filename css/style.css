@@ -63,13 +63,23 @@ nav{
     border: none;
 }
 
+.tranding-container,
 .popular-container,
-.latest-container{
+.latest-container,
+.toprated-container{
     width: 100%;
     height: 300px;
     padding: 2rem 3.7rem;
-    margin-top: 9rem;
+    margin-top: 6rem;
     position: relative;
+}
+
+.tranding-container{
+    margin-top: 9rem;
+}
+
+.toprated-container{
+    margin-bottom: 8rem !important;
 }
 
 .heading{
