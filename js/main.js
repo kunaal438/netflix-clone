@@ -24,8 +24,14 @@ const makingPoster = (data) => {
     })
 }
 
+// fetching through api
+
 // fetch(popularMovies)
 // .then(res => res.json())
 // .then(data => {
-//     // makingPoster(data.results);
+//     localStorage.setItem('obj', JSON.stringify(data.results));
+//     makingPoster(data.results);
 // })
+
+let data = JSON.parse(localStorage.getItem('obj'));
+makingPoster(data);
