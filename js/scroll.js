@@ -1,25 +1,28 @@
-const container = document.querySelector('.cards-container');
-let containerDimensions =  container.getBoundingClientRect();
-const containerWidth = containerDimensions.width;
+const container = [...document.querySelectorAll('.cards-container')];
 
-let containerScroll = 0;
+const nxtBtn = [...document.querySelectorAll('.nxt')];
+const preBtn = [...document.querySelectorAll('.pre')];
 
-const nxtBtn = document.querySelector('.nxt');
-const preBtn = document.querySelector('.pre');
+container.map((item, index) => {
+    let containerDimensions =  item.getBoundingClientRect();
+    const containerWidth = containerDimensions.width;
 
-nxtBtn.addEventListener('click', () => {
-    container.scrollLeft = containerScroll + containerWidth;
-    containerScroll += containerWidth;
-    // console.log(containerScroll);
-    if(container.scrollWidth < containerScroll){
-        containerScroll -= containerWidth; 
-    }
-})
+    let containerScroll = 0;
 
-preBtn.addEventListener('click', () => {
-    if(containerScroll !== 0){
-        container.scrollLeft = containerScroll - containerWidth;
-        containerScroll -= containerWidth;
-    }
-    // console.log(containerScroll);
+    nxtBtn[index].addEventListener('click', () => {
+        item.scrollLeft = containerScroll + containerWidth;
+        containerScroll += containerWidth;
+        // console.log(containerScroll);
+        if(item.scrollWidth < containerScroll){
+            containerScroll -= containerWidth; 
+        }
+    })
+
+    preBtn[index].addEventListener('click', () => {
+        if(containerScroll !== 0){
+            item.scrollLeft = containerScroll - containerWidth;
+            containerScroll -= containerWidth;
+        }
+        // console.log(containerScroll);
+    })
 })

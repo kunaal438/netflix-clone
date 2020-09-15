@@ -25,6 +25,7 @@ nav{
     padding: 0 3vw;
     position: fixed;
     top: 0;
+    z-index: 9;
 }
 
 .svg-icon{
@@ -62,7 +63,8 @@ nav{
     border: none;
 }
 
-.popular-container{
+.popular-container,
+.latest-container{
     width: 100%;
     height: 300px;
     padding: 2rem 3.7rem;
@@ -70,7 +72,7 @@ nav{
     position: relative;
 }
 
-.popular-container .heading{
+.heading{
     color: #fff;
     text-transform: capitalize;
     font-size: 3rem;
@@ -83,19 +85,9 @@ nav{
     /* background: #000; */
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden;
     scroll-behavior: smooth;
     position: relative;
-}
-
-.cards-container::after{
-    content: '';
-    position: fixed;
-    /* top: 0; */
-    left: 50%;
-    transform: translate(-50%);
-    background: linear-gradient(90deg, rgba(24,24,24,1) 0%, rgba(255,255,255,0) 4%, rgba(255,255,255,0) 96%, rgba(24,24,24,1) 100%);
-    width: calc(100% - 5vw);
-    height: 270px;
 }
 
 .cards-container::-webkit-scrollbar{
@@ -112,7 +104,7 @@ nav{
 }
 
 .cards-container .card:first-child{
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 .cards-container .card img{
