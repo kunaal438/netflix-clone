@@ -19,7 +19,7 @@ const bannerInfo = document.querySelector('.banner p');
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
 
-const makingPoster = (int, data, type) => {
+const makingPoster = (int, data) => {
 
     let parentDiv = parent[int];
 
@@ -35,13 +35,16 @@ const makingPoster = (int, data, type) => {
     })
 }
 
+let arr;
+
 // fetching tranding movies through api
 // fetch(trandingMovies)
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('tranding', JSON.stringify(data.results));
 //     // console.log(data.results);
-//     makingPoster(0, data.results, 'movie');
+//     makingPoster(0, data.results);
+//     arr.push(data.results);
 // })
 
 // // fetching popular movies through api
@@ -49,7 +52,8 @@ const makingPoster = (int, data, type) => {
 // .then(res => res.json())
 // .then(data => {
 //     localStorage.setItem('popular', JSON.stringify(data.results));
-//     makingPoster(1, data.results, 'show');
+//     makingPoster(1, data.results);
+//     arr.push(data.results);
 // })
 
 // // fetching upcoming movies through api
@@ -58,6 +62,7 @@ const makingPoster = (int, data, type) => {
 // .then(data => {
 //     localStorage.setItem('upcoming', JSON.stringify(data.results));
 //     makingPoster(2, data.results);
+//     arr.push(data.results);
 // })
 
 // // fetching toprated movies through api
@@ -67,6 +72,7 @@ const makingPoster = (int, data, type) => {
 //     localStorage.setItem('toprated', JSON.stringify(data.results));
 //     // console.log(data.results);
 //     makingPoster(3, data.results);
+//     arr.push(data.results);
 // })
 
 let data1 = JSON.parse(localStorage.getItem('tranding'));
@@ -81,7 +87,7 @@ makingPoster(2, data3);
 let data4 = JSON.parse(localStorage.getItem('toprated'));
 makingPoster(3, data4);
 
-let arr = [data1, data2, data3, data4];
+arr = [data1, data2, data3, data4];
 let randomArr = Math.floor(Math.random() * arr.length);
 let bannerDataArr = arr[randomArr];
 let bannerDataArrRandom = Math.floor(Math.random() * bannerDataArr.length);
