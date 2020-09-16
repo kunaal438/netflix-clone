@@ -4,12 +4,16 @@ const popular_url = 'https://api.themoviedb.org/3/tv/popular?api_key=';
 const upcoming_url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
 const toprated_url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
 const tranding_url = 'https://api.themoviedb.org/3/trending/movie/day?api_key=';
+const genres_url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=';
+
+const tv_genresSorted_url = 'http://api.themoviedb.org/3/discover/tv?api_key=' + api_key + '&sort_by=popularity.desc&with_genres=';
 const img_url = 'https://image.tmdb.org/t/p/w500/';
 
 const popularMovies = popular_url + api_key;
 const upcomingMovies = upcoming_url + api_key;
 const topratedMovies = toprated_url + api_key;
 const trandingMovies = tranding_url + api_key;
+const genresList = genres_url + api_key;
 
 // banner variables
 const bannerImg = document.querySelector('.banner-img');
@@ -19,7 +23,7 @@ const bannerInfo = document.querySelector('.banner p');
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
 
-const makingPoster = (int, data) => {
+const makingPoster = (int, data, type) => {
 
     let parentDiv = parent[int];
 
@@ -30,31 +34,42 @@ const makingPoster = (int, data) => {
         parentDiv.appendChild(div);
         div.appendChild(img);
 
-        img.setAttribute('src', `${img_url}${item.poster_path}`);
+        if (item.poster_path === null) {
+            img.setAttribute('src', `${img_url}${item.backdrop_path}`);
+        } else {
+            img.setAttribute('src', `${img_url}${item.poster_path}`);
+        }
+        if(item.poster_path === null && item.backdrop_path === null){
+            img.setAttribute('src', 'netflix.jpeg');
+        }
+
+        if(type === 'show'){
+            img.className = 'img';
+        }
+
         div.className = 'card';
     })
 }
 
-let arr;
+let arr = [];
+let allGenres;
 
 // fetching tranding movies through api
-// fetch(trandingMovies)
-// .then(res => res.json())
-// .then(data => {
-//     localStorage.setItem('tranding', JSON.stringify(data.results));
-//     // console.log(data.results);
-//     makingPoster(0, data.results);
-//     arr.push(data.results);
-// })
+fetch(trandingMovies)
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data.results);
+        makingPoster(0, data.results, 'movie');
+        arr.push(data.results);
+    })
 
-// // fetching popular movies through api
-// fetch(popularMovies)
-// .then(res => res.json())
-// .then(data => {
-//     localStorage.setItem('popular', JSON.stringify(data.results));
-//     makingPoster(1, data.results);
-//     arr.push(data.results);
-// })
+// fetching popular movies through api
+fetch(popularMovies)
+    .then(res => res.json())
+    .then(data => {
+        makingPoster(1, data.results, 'movie');
+        arr.push(data.results);
+    })
 
 // // fetching upcoming movies through api
 // fetch(upcomingMovies)
@@ -75,24 +90,59 @@ let arr;
 //     arr.push(data.results);
 // })
 
-let data1 = JSON.parse(localStorage.getItem('tranding'));
-makingPoster(0, data1);
+fetch(genresList)
+.then(res => res.json())
+.then(data => {
+    allGenres = data.genres;
+})
 
-let data2 = JSON.parse(localStorage.getItem('popular'));
-makingPoster(1, data2);
+setTimeout(() => {
+    let randomArr = Math.floor(Math.random() * arr.length);
+    let bannerDataArr = arr[randomArr];
+    let bannerDataArrRandom = Math.floor(Math.random() * bannerDataArr.length);
+    let bannerData = bannerDataArr[bannerDataArrRandom];
 
-let data3 = JSON.parse(localStorage.getItem('upcoming'));
-makingPoster(2, data3);
+    bannerImg.setAttribute('src', `https://image.tmdb.org/t/p/original${bannerData.backdrop_path}`)
+    bannerHeading.innerHTML = bannerData.title || bannerData.original_name || bannerData.original_title;
+    bannerInfo.innerHTML = bannerData.overview;
+}, 200);
 
-let data4 = JSON.parse(localStorage.getItem('toprated'));
-makingPoster(3, data4);
+fetch(genresList)
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data.genres);
+        allGenres = data.genres;
+        getalldata();
+    })
 
-arr = [data1, data2, data3, data4];
-let randomArr = Math.floor(Math.random() * arr.length);
-let bannerDataArr = arr[randomArr];
-let bannerDataArrRandom = Math.floor(Math.random() * bannerDataArr.length);
-let bannerData = bannerDataArr[bannerDataArrRandom];
+const getGenresId = (genre) => {
+    let a;
+    allGenres.map(item => {
+        if (item.name.toLowerCase() === genre) {
+            a = item.id;
+        }
+    })
 
-bannerImg.setAttribute('src', `https://image.tmdb.org/t/p/original/${bannerData.backdrop_path}`)
-bannerHeading.innerHTML = bannerData.title;
-bannerInfo.innerHTML = bannerData.overview;
+    return a;
+}
+
+let genreNumber = 2; 
+
+const fetchGenre = (genre) => {
+    let genreId = getGenresId(genre);
+    fetch(`${tv_genresSorted_url}${genreId}`)
+        .then(res => res.json())
+        .then(data => {
+            makingPoster(genreNumber, data.results, 'show');
+            // console.log(data);
+            genreNumber++;
+        })
+}
+
+const getalldata = () => {
+    fetchGenre('action');
+    fetchGenre('science fiction');
+    fetchGenre('adventure');
+    fetchGenre('comedy');
+    fetchGenre('thriller');
+}

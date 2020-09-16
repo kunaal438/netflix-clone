@@ -125,6 +125,19 @@ nav{
     margin-bottom: 8rem !important;
 }
 
+.action-container,
+.science-container,
+.adventure-container,
+.comedy-container,
+.thriller-container{
+    width: 100%;
+    height: 150px;
+    padding: 2rem 3.7rem;
+    margin-top: 6rem;
+    position: relative;
+    margin-bottom: 7rem;
+}
+
 .heading{
     color: #fff;
     text-transform: capitalize;
@@ -162,8 +175,7 @@ nav{
 
 .cards-container .card img{
     width: 100%;
-    /* height: 90%;
-    background: #000; */
+    height: 100%;
 }
 
 .cards-container .card .title{
@@ -187,6 +199,12 @@ nav{
     line-height: 250px;
     width: 3rem;
     user-select: none;
+}
+
+.genres .pre,
+.genres .nxt{
+    height: 150px;
+    top: 0;
 }
 
 .pre{
