@@ -6,14 +6,14 @@ const toprated_url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
 const tranding_url = 'https://api.themoviedb.org/3/trending/movie/day?api_key=';
 const genres_url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=';
 
-const tv_genresSorted_url = 'http://api.themoviedb.org/3/discover/tv?api_key=' + api_key + '&sort_by=popularity.desc&with_genres=';
+const tv_genresSorted_url = 'http://api.themoviedb.org/3/discover/movie?api_key=' + api_key + '&sort_by=popularity.desc&with_genres=';
 const img_url = 'https://image.tmdb.org/t/p/w500/';
 
-const popularMovies = popular_url + api_key;
-const upcomingMovies = upcoming_url + api_key;
-const topratedMovies = toprated_url + api_key;
-const trandingMovies = tranding_url + api_key;
-const genresList = genres_url + api_key;
+const popularMovies = popular_url + api_key + '&language=en-US';
+const upcomingMovies = upcoming_url + api_key + '&language=en-US';
+const topratedMovies = toprated_url + api_key + '&language=en-US';
+const trandingMovies = tranding_url + api_key + '&language=en-US';
+const genresList = genres_url + api_key + '&language=en-US';
 
 // banner variables
 const bannerImg = document.querySelector('.banner-img');
@@ -28,26 +28,24 @@ const makingPoster = (int, data, type) => {
     let parentDiv = parent[int];
 
     data.map(item => {
-        const div = document.createElement('div');
-        const img = document.createElement('img');
+        if (!(item.poster_path === null && item.backdrop_path === null)) {
+            const div = document.createElement('div');
+            const img = document.createElement('img');
 
-        parentDiv.appendChild(div);
-        div.appendChild(img);
+            parentDiv.appendChild(div);
+            div.appendChild(img);
 
-        if (item.poster_path === null) {
-            img.setAttribute('src', `${img_url}${item.backdrop_path}`);
-        } else {
-            img.setAttribute('src', `${img_url}${item.poster_path}`);
+            if (item.poster_path === null) {
+                img.setAttribute('src', `${img_url}${item.backdrop_path}`);
+            } else {
+                img.setAttribute('src', `${img_url}${item.poster_path}`);
+            }
+            if (type === 'show') {
+                img.className = 'img';
+            }
+
+            div.className = 'card';
         }
-        if(item.poster_path === null && item.backdrop_path === null){
-            img.setAttribute('src', 'netflix.jpeg');
-        }
-
-        if(type === 'show'){
-            img.className = 'img';
-        }
-
-        div.className = 'card';
     })
 }
 
@@ -61,6 +59,9 @@ fetch(trandingMovies)
         // console.log(data.results);
         makingPoster(0, data.results, 'movie');
         arr.push(data.results);
+        setTimeout(() => {
+            settingBanner();
+        }, 100);
     })
 
 // fetching popular movies through api
@@ -91,12 +92,12 @@ fetch(popularMovies)
 // })
 
 fetch(genresList)
-.then(res => res.json())
-.then(data => {
-    allGenres = data.genres;
-})
+    .then(res => res.json())
+    .then(data => {
+        allGenres = data.genres;
+    })
 
-setTimeout(() => {
+const settingBanner = () => {
     let randomArr = Math.floor(Math.random() * arr.length);
     let bannerDataArr = arr[randomArr];
     let bannerDataArrRandom = Math.floor(Math.random() * bannerDataArr.length);
@@ -105,14 +106,15 @@ setTimeout(() => {
     bannerImg.setAttribute('src', `https://image.tmdb.org/t/p/original${bannerData.backdrop_path}`)
     bannerHeading.innerHTML = bannerData.title || bannerData.original_name || bannerData.original_title;
     bannerInfo.innerHTML = bannerData.overview;
-}, 200);
+}
 
 fetch(genresList)
     .then(res => res.json())
     .then(data => {
-        // console.log(data.genres);
+        console.log(data.genres);
         allGenres = data.genres;
         getalldata();
+
     })
 
 const getGenresId = (genre) => {
@@ -126,10 +128,11 @@ const getGenresId = (genre) => {
     return a;
 }
 
-let genreNumber = 2; 
+let genreNumber = 2;
 
 const fetchGenre = (genre) => {
     let genreId = getGenresId(genre);
+    // console.log(genreId);
     fetch(`${tv_genresSorted_url}${genreId}`)
         .then(res => res.json())
         .then(data => {
@@ -144,5 +147,5 @@ const getalldata = () => {
     fetchGenre('science fiction');
     fetchGenre('adventure');
     fetchGenre('comedy');
-    fetchGenre('thriller');
+    fetchGenre('horror');
 }
