@@ -150,7 +150,6 @@ nav{
     /* background: #000; */
     display: flex;
     overflow-x: scroll;
-    overflow-y: hidden;
     scroll-behavior: smooth;
     position: relative;
 }
@@ -161,14 +160,19 @@ nav{
 
 .cards-container .card {
     height: 100%;
+    transition: .3s;
     min-width: 156px;
     width: 156px;
     cursor: pointer;
     position: relative;
     /* background: #2ff; */
-    margin-right: 20px;
+    margin-right: 0px;
+    transform: scale(0.9);
 }
 
+.card:hover{
+    transform: scale(1);
+}
 
 .cards-container .card img{
     width: 100%;

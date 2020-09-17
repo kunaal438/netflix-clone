@@ -57,7 +57,7 @@ const makingPoster = (int, data, type) => {
             let isOn = false;
             div.addEventListener('click', () => { 
                 // console.log(item.id);
-                    if(!isOn){
+                    if(!div.className.includes('active')){
                     videoContainer.map((obj, i) => {
                         if(i !== int){
                             obj.style.height = null;
@@ -66,14 +66,20 @@ const makingPoster = (int, data, type) => {
                     fetch(`${link}${api_key}`)
                     .then(res => res.json())
                     .then(data => {
-                        isOn = true;
+                        // isOn = true;
+                        let cards = [...document.querySelectorAll('.card')];
+                        cards.map(dom => {dom.classList.remove('active')});
+                        div.classList.add('active');
                         videoContainer[int].style.height = '400px';
                         // console.log(data);
                         video[int].setAttribute('src', `https://www.youtube.com/embed/${data.results[0].key}`);
+                        video[int].setAttribute('serial', item.id);
                     })
-                } else{
+                } else if(video[int].getAttribute('serial') == item.id){
                     isOn = false;
+                    div.classList.remove('active');
                     videoContainer[int].style.height = null;
+                    video[int].setAttribute('src', ``);
                 }
             })
         }
