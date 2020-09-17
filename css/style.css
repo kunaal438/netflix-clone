@@ -133,9 +133,8 @@ nav{
     width: 100%;
     min-height: 150px;
     padding: 2rem 3.7rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     position: relative;
-    margin-bottom: 7rem;
 }
 
 .heading{
@@ -262,7 +261,19 @@ nav{
 }
 
 @media screen and (max-width: 500px){
+    html{
+        font-size: 8px;
+    }
+    .banner{
+        padding: 0 40px;
+    }
     .video{
         max-height: 205px;
     } 
+    nav{
+        padding: 30px !important;
+    }
+    .btn{
+        width: 11rem;
+    }
 }
