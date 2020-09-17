@@ -20,6 +20,9 @@ const bannerImg = document.querySelector('.banner-img');
 const bannerHeading = document.querySelector('.banner-heading');
 const bannerInfo = document.querySelector('.banner p');
 
+const videoContainer = [...document.querySelectorAll('.video')];
+const video = [...document.querySelectorAll('.video iframe')];
+
 // console.log(upcomingMovies);
 const parent = [...document.querySelectorAll('.cards-container')];
 
@@ -27,8 +30,14 @@ const makingPoster = (int, data, type) => {
 
     let parentDiv = parent[int];
 
-    data.map(item => {
+    data.map((item) => {
         if (!(item.poster_path === null && item.backdrop_path === null)) {
+            let link;
+            if(type === 'show'){
+                link = 'http://api.themoviedb.org/3/tv/'+item.id+'/videos?api_key=';
+            } else{
+                link = 'http://api.themoviedb.org/3/movie/'+item.id+'/videos?api_key=';
+            }
             const div = document.createElement('div');
             const img = document.createElement('img');
 
@@ -45,6 +54,28 @@ const makingPoster = (int, data, type) => {
             }
 
             div.className = 'card';
+            let isOn = false;
+            div.addEventListener('click', () => { 
+                // console.log(item.id);
+                    if(!isOn){
+                    videoContainer.map((obj, i) => {
+                        if(i !== int){
+                            obj.style.height = null;
+                        }
+                    })
+                    fetch(`${link}${api_key}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        isOn = true;
+                        videoContainer[int].style.height = '400px';
+                        // console.log(data);
+                        video[int].setAttribute('src', `https://www.youtube.com/embed/${data.results[0].key}`);
+                    })
+                } else{
+                    isOn = false;
+                    videoContainer[int].style.height = null;
+                }
+            })
         }
     })
 }
@@ -68,11 +99,11 @@ fetch(trandingMovies)
 fetch(popularMovies)
     .then(res => res.json())
     .then(data => {
-        makingPoster(1, data.results, 'movie');
+        makingPoster(1, data.results, 'show');
         arr.push(data.results);
     })
 
-// // fetching upcoming movies through api
+// fetching upcoming movies through api
 // fetch(upcomingMovies)
 // .then(res => res.json())
 // .then(data => {
@@ -111,7 +142,6 @@ const settingBanner = () => {
 fetch(genresList)
     .then(res => res.json())
     .then(data => {
-        console.log(data.genres);
         allGenres = data.genres;
         getalldata();
 
@@ -136,7 +166,7 @@ const fetchGenre = (genre) => {
     fetch(`${tv_genresSorted_url}${genreId}`)
         .then(res => res.json())
         .then(data => {
-            makingPoster(genreNumber, data.results, 'show');
+            makingPoster(genreNumber, data.results, 'movie');
             // console.log(data);
             genreNumber++;
         })
