@@ -176,6 +176,10 @@ nav{
     height: 100%;
 }
 
+.genres .card{
+    height: 150px !important;
+}
+
 .cards-container .card .title{
     text-align: center;
     text-transform: capitalize;
@@ -202,7 +206,7 @@ nav{
 .genres .pre,
 .genres .nxt{
     height: 150px;
-    top: 0px;
+    top: 20px;
 
 }
 
@@ -236,4 +240,29 @@ nav{
     display: block;
     margin: auto;
     height: 100%;
+}
+
+@media screen and (max-width: 700px){
+    .banner{
+        height: 250px;
+    }
+    .banner p{
+        max-height: 45px;
+        overflow: hidden;
+    }
+    .right-content p{
+        display: none;
+    }
+    .video{
+        max-height: 300px;
+    }
+    .banner-img{
+        height: 120% !important;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .video{
+        max-height: 205px;
+    } 
 }
